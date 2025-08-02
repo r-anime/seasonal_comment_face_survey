@@ -20,10 +20,6 @@ BASE_URL = "https://api.tally.so"
 GET_WORKSPACES = "/workspaces"
 FORMS = "/forms"
 
-COMMENT_FACE_GITHUB = "https://api.github.com/repos/r-anime/comment-face-assets/contents/source_seasonal_faces/"
-COMMENT_FACE_TREE_GITHUB = "https://api.github.com/repos/r-anime/comment-face-assets/git/trees/"
-COMMENT_FACE_GITHUB_DL_LINK = "https://raw.githubusercontent.com/r-anime/comment-face-assets/master/source_seasonal_faces/"
-
 PREV_SEASON = {
   "winter" => [-1, "fall"],
   "fall" => [0, "summer"],
@@ -41,7 +37,9 @@ NEXT_SEASON = {
 def main(year, season)
   raise "invalid season: #{season}" unless PREV_SEASON.include?(season)
 
-  comment_faces = fetch_comment_faces(year, season)
+  @github_service = GithubService.new(GITHUB_TOKEN)
+
+  comment_faces = @github_service.fetch_comment_faces(year, season)
   puts "comment_faces: #{comment_faces}"
 
   existing_form_id = fetch_existing_form(year, season)
@@ -66,31 +64,6 @@ def main(year, season)
   blocks = calculate_survey_blocks(comment_faces, mention_ids, year, season)
   update_form(existing_form_id, get_survey_title(year, season), mention_ids, blocks)
   # puts "fetch_workspace: #{fetch_workspace}"
-end
-
-def fetch_comment_faces(year, season)
-  headers = {"Authorization" => "Bearer #{GITHUB_TOKEN}"} if GITHUB_TOKEN
-
-  tree_sha_resp = HTTParty.get(COMMENT_FACE_GITHUB + "#{year}%20#{season}", headers: headers)
-  raise "error fetching comment faces tree sha from r/anime comment-face-assets github repo: #{tree_sha_resp}" unless tree_sha_resp.success?
-  tree_sha = tree_sha_resp.parsed_response.find { |git| git["name"] == "source" }&.[]("sha")
-
-  tree_resp = HTTParty.get(COMMENT_FACE_TREE_GITHUB + tree_sha + "?recursive=true", headers: headers)
-  raise "error fetching comment faces tree from r/anime comment-face-assets github repo: #{tree_resp}" unless tree_resp.success?
-
-  tree_resp.parsed_response["tree"].select do |git|
-    git["type"] == "blob"
-    # end.select do |git|
-    #   git["path"].count("/") <= 1
-  end.reject do |git|
-    git["path"].include?('original')
-    # end.select do |git|
-    #   git["path"].include?('original')
-    # end.map do |git|
-    #   [git["path"].split("/")[0], COMMENT_FACE_GITHUB_DL_LINK + "#{year}%20#{season}/#{git["path"]}"]
-  end.map do |git|
-    [git["path"].split("/")[0], COMMENT_FACE_GITHUB_DL_LINK + "#{year}%20#{season}/source/#{git["path"]}"]
-  end.to_h
 end
 
 def fetch_existing_form(year, season)
@@ -191,7 +164,7 @@ def update_form(form_id, title, mention_ids, blocks)
 end
 
 def calculate_survey_blocks(comment_faces, mention_ids, year, season)
-  prev_comment_faces = fetch_comment_faces(PREV_SEASON[season][0] + year, PREV_SEASON[season][1])
+  prev_comment_faces = @github_service.fetch_comment_faces(PREV_SEASON[season][0] + year, PREV_SEASON[season][1])
   calculate_rating_blocks(comment_faces) +
     [{
        "uuid": SecureRandom.uuid,
@@ -773,110 +746,6 @@ def calculate_other_questions_blocks
         ]
       }
     }
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "TITLE",
-  #   "groupUuid": SecureRandom.uuid,
-  #   "groupType": "QUESTION",
-  #   "payload": {
-  #     "safeHTMLSchema": [
-  #       [
-  #         "Should we add a #seasonalwildcard"
-  #       ]
-  #     ]
-  #   }
-  # },
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "MULTIPLE_CHOICE_OPTION",
-  #   "groupUuid": seasonal_wildcard_group_uuid,
-  #   "groupType": "MULTIPLE_CHOICE",
-  #   "payload": {
-  #     "isRequired": false,
-  #     "index": 0,
-  #     "isFirst": true,
-  #     "isLast": false,
-  #     "randomize": true,
-  #     "colorCodeOptions": false,
-  #     "hasDefaultAnswer": false,
-  #     "hasOtherOption": false,
-  #     "text": "Yes (Multiple (~2-4)))"
-  #   }
-  # },
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "MULTIPLE_CHOICE_OPTION",
-  #   "groupUuid": seasonal_wildcard_group_uuid,
-  #   "groupType": "MULTIPLE_CHOICE",
-  #   "payload": {
-  #     "index": 1,
-  #     "isRequired": false,
-  #     "isFirst": false,
-  #     "isLast": false,
-  #     "randomize": true,
-  #     "colorCodeOptions": false,
-  #     "hasDefaultAnswer": false,
-  #     "hasOtherOption": false,
-  #     "text": "Yes (Single)"
-  #   }
-  # },
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "MULTIPLE_CHOICE_OPTION",
-  #   "groupUuid": seasonal_wildcard_group_uuid,
-  #   "groupType": "MULTIPLE_CHOICE",
-  #   "payload": {
-  #     "isRequired": false,
-  #     "index": 2,
-  #     "isFirst": false,
-  #     "isLast": false,
-  #     "randomize": true,
-  #     "colorCodeOptions": false,
-  #     "hasDefaultAnswer": false,
-  #     "hasOtherOption": false,
-  #     "text": "No"
-  #   }
-  # },
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "MULTIPLE_CHOICE_OPTION",
-  #   "groupUuid": seasonal_wildcard_group_uuid,
-  #   "groupType": "MULTIPLE_CHOICE",
-  #   "payload": {
-  #     "isRequired": false,
-  #     "index": 3,
-  #     "isFirst": false,
-  #     "isLast": true,
-  #     "randomize": true,
-  #     "colorCodeOptions": false,
-  #     "hasDefaultAnswer": false,
-  #     "hasOtherOption": false,
-  #     "text": "Indifferent"
-  #   }
-  # },
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "TITLE",
-  #   "groupUuid": SecureRandom.uuid,
-  #   "groupType": "QUESTION",
-  #   "payload": {
-  #     "safeHTMLSchema": [
-  #       [
-  #         "This is for thoughts about seasonal wildcards"
-  #       ]
-  #     ]
-  #   }
-  # },
-  # {
-  #   "uuid": SecureRandom.uuid,
-  #   "type": "TEXTAREA",
-  #   "groupUuid": SecureRandom.uuid,
-  #   "groupType": "TEXTAREA",
-  #   "payload": {
-  #     "isRequired": false,
-  #     "placeholder": ""
-  #   }
-  # },
   ]
 end
 

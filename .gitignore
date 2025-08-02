@@ -51,3 +51,5 @@ build/
 !Dockerfile
 
 .env
+*.sqlite3*
+zsaved_responses

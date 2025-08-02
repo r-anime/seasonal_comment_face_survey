@@ -1,0 +1,40 @@
+.ratings {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+
+  .rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+
+
+    //margin-top: 50px;
+    //height: 600px;
+
+    .info-section {
+      flex-basis: content;
+      //flex-basis: 35%;
+      //flex-grow: 2;
+      //width: 40%;
+      .comment-face-image {
+        //width: 400%;
+        width: 500px;
+        margin-bottom: 27px;
+      }
+    }
+
+    .chart-wrapper {
+      width: 100%;
+      //display: flex;
+      //flex-direction: row;
+      //height: 400px;
+      //flex-basis: 65%;
+      //width: 75%;
+      //flex-grow: 5;
+    }
+  }
+}
+

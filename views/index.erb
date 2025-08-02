@@ -1,0 +1,68 @@
+<h2>Surveys</h2>
+<% @surveys.each do |survey| %>
+  <div>
+    <a href="/surveys/<%= survey.year %>/<%= survey.season %>"><%= survey.year %> <%= survey.season.capitalize %> <%= survey.name %></a>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>Add new Survey</h2>
+
+<form action="/surveys" method="post" class="needs-validation" novalidate>
+  <div class="mb-3">
+    <label for="year" class="form-label">Year</label>
+    <input
+      type="number"
+      class="form-control"
+      id="year"
+      name="year"
+      required
+      min="1900"
+      max="2100"
+      />
+    <div class="invalid-feedback">Please enter a valid year.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="season" class="form-label">Season</label>
+    <select
+      id="season"
+      name="season"
+      class="form-select"
+      required
+    >
+      <option value="" disabled selected>Select a season</option>
+      <option value="winter">Winter</option>
+      <option value="spring">Spring</option>
+      <option value="summer">Summer</option>
+      <option value="fall">Fall</option>
+    </select>
+    <div class="invalid-feedback">Please select a season.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="name" class="form-label">Survey Name</label>
+    <input type="url" class="form-control" id="name" name="name" placeholder=""/>
+  </div>
+
+  <div class="mb-3">
+    <label for="sheet_url" class="form-label">Google Sheet URL</label>
+    <input type="url" class="form-control" id="sheet_url" name="sheet_url" placeholder=""/>
+    <small class="form-text text-muted">Enter the full Google Sheet URL OR fill in Sheet ID and GID below.</small>
+  </div>
+
+  <div class="mb-3">
+    <label for="sheet_id" class="form-label">Sheet ID</label>
+    <input type="text" class="form-control" id="sheet_id" name="sheet_id" placeholder="Google Sheet ID"/>
+  </div>
+
+  <div class="mb-3">
+    <label for="gid" class="form-label">GID</label>
+    <input type="text" class="form-control" id="gid" name="gid" placeholder="Google Sheet GID"/>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create Survey</button>
+</form>
+</div>
+
