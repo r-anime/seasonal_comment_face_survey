@@ -56,5 +56,5 @@ jobs:
             docker pull ${{ steps.meta.outputs.tags }}
           
             # Restart the service to make the new stuff go live
-            docker compose restart seasonal_comment_face_survey
+            docker compose up -d seasonal_comment_face_survey
           EOF
