@@ -20,8 +20,12 @@
   <div class="container d-flex flex-wrap justify-content-between align-items-center ">
     <p>Created by <a href="https://www.reddit.com/user/baseballlover723/">u/baseballlover723</a></p>
     <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a class="px-2" href="<%= ENV["GIT_REPO_URI"] %>">GitHub project</a></li>
-      <li class="nav-item"><p class="px-2">Git sha: <%= ENV["GIT_COMMIT_HASH"] %></p></li>
+      <li class="nav-item"><a class="px-2" href="<%= ENV["GIT_REPO_URL"] %>">GitHub project</a></li>
+      <li class="nav-item">
+        <p class="px-2">Git sha:
+          <a href="<%= ENV["GIT_REPO_URL"] %>/tree/<%= ENV["GIT_COMMIT_HASH"] %>"><%= ENV["GIT_COMMIT_HASH"] %></a>
+        </p>
+      </li>
     </ul>
   </div>
 </footer>
