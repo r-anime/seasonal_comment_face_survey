@@ -1,0 +1,24 @@
+version: '3.9'
+name: production
+
+services:
+  seasonal_comment_face_survey:
+    build: .
+    ports:
+      - "4600:4567"
+    environment:
+      - RACK_ENV=production
+      - PORT=4567
+    volumes:
+      - ./db:/app/db
+    restart: always
+    depends_on:
+      - seasonal_comment_face_survey_migrate
+
+  seasonal_comment_face_survey_migrate:
+    build: .
+    command: rake db:migrate
+    environment:
+      - RACK_ENV=production
+    volumes:
+      - ./db:/app/db
