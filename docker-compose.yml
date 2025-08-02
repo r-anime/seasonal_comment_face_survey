@@ -6,11 +6,9 @@ services:
     build: .
     ports:
       - "4600:4567"
-    environment:
-      - RACK_ENV=production
-      - PORT=4567
+    env_file: .env
     volumes:
-      - ./db:/app/db
+      - ./db.sqlite3:/app/db.sqlite3
     restart: always
     depends_on:
       - seasonal_comment_face_survey_migrate
@@ -18,7 +16,6 @@ services:
   seasonal_comment_face_survey_migrate:
     build: .
     command: rake db:migrate
-    environment:
-      - RACK_ENV=production
+    env_file: .env
     volumes:
-      - ./db:/app/db
+      - ./db.sqlite3:/app/db.sqlite3
