@@ -4,12 +4,12 @@ name: production
 services:
   seasonal_comment_face_survey:
     build: .
+    restart: always
     ports:
       - "4600:4567"
     env_file: .env
     volumes:
       - ./db.sqlite3:/app/db.sqlite3
-    restart: always
     depends_on:
       - seasonal_comment_face_survey_migrate
 
