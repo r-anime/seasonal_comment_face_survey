@@ -39,3 +39,19 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Restart server with latest image
+        run: |
+          ssh -o StrictHostKeyChecking=no flairsite@flair.r-anime.moe /bin/bash << 'EOF'
+            # Causes this script to exit early and report a failure if any command errors
+            set -e
+          
+            # Checkout latest changes from our repo, overwriting any local changes
+            cd "/srv"
+          
+            # pull latest image
+            docker pull ${{ steps.meta.outputs.tags }}
+          
+            # Restart the service to make the new stuff go live
+            docker compose restart seasonal_comment_face_survey
+          EOF
