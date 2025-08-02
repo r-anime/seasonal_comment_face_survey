@@ -49,6 +49,7 @@ build/
 *.csv
 
 !Dockerfile
+!Rakefile
 
 .env
 *.sqlite3*
