@@ -52,12 +52,12 @@ class App < Sinatra::Base
     gon.baseballsTopWeighted = {multiplier: ChartService::BASEBALLS_TOP_WEIGHTED_MULTIPLIER, weights: ChartService::BASEBALLS_TOP_WEIGHTED_WEIGHTS}
     gon.chartData = @@chart_service.generate_data(year, season)
     gon.commentFaceLinks = @@github_service.fetch_comment_faces(year, season)
-    erb :survey
+    erb :survey, locals: {template: [:survey, :show]}
   end
 
   get '/surveys' do
     @surveys = Survey.all
-    erb :index
+    erb :index, locals: {template: [:survey, :index]}
   end
 
   post '/surveys' do

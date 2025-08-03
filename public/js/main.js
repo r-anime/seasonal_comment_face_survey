@@ -99,5 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     debug.textContent = JSON.stringify(gon, null, 2);
   }
 
-  loadCharts();
+  if (document.querySelector('.survey .show')) {
+    loadCharts();
+  }
 });
