@@ -1,0 +1,10 @@
+<h2>Surveys</h2>
+<% @surveys.each do |survey| %>
+  <div>
+    <a href="/surveys/<%= survey.year %>/<%= survey.season %>"><%= survey.year %> <%= survey.season.capitalize %> <%= survey.name %></a>
+  </div>
+<% end %>
+
+<hr>
+
+<a href="/surveys/new" class="btn btn-info">Add new Survey</a>

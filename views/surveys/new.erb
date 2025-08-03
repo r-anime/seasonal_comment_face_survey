@@ -1,12 +1,3 @@
-<h2>Surveys</h2>
-<% @surveys.each do |survey| %>
-  <div>
-    <a href="/surveys/<%= survey.year %>/<%= survey.season %>"><%= survey.year %> <%= survey.season.capitalize %> <%= survey.name %></a>
-  </div>
-<% end %>
-
-<hr>
-
 <h2>Add new Survey</h2>
 
 <form action="/surveys" method="post" class="needs-validation" novalidate>
@@ -65,4 +56,3 @@
   <button type="submit" class="btn btn-primary">Create Survey</button>
 </form>
 </div>
-

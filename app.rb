@@ -46,18 +46,13 @@ class App < Sinatra::Base
     redirect '/surveys'
   end
 
-  get '/surveys/:year/:season' do
-    year = params[:year]
-    season = params[:season]
-    gon.baseballsTopWeighted = {multiplier: ChartService::BASEBALLS_TOP_WEIGHTED_MULTIPLIER, weights: ChartService::BASEBALLS_TOP_WEIGHTED_WEIGHTS}
-    gon.chartData = @@chart_service.generate_data(year, season)
-    gon.commentFaceLinks = @@github_service.fetch_comment_faces(year, season)
-    erb :survey, locals: {template: [:survey, :show]}
-  end
-
   get '/surveys' do
     @surveys = Survey.all
-    erb :index, locals: {template: [:survey, :index]}
+    erb :'surveys/index', locals: {template: [:survey, :index]}
+  end
+
+  get '/surveys/new' do
+    erb :'surveys/new', locals: {template: [:survey, :new]}
   end
 
   post '/surveys' do
@@ -89,9 +84,19 @@ class App < Sinatra::Base
       redirect "/surveys/#{survey.year}/#{survey.season}"
     else
       @errors = survey.errors.full_messages
-      erb :new
+      erb :'surveys/new'
     end
   end
+
+  get '/surveys/:year/:season' do
+    year = params[:year]
+    season = params[:season]
+    gon.baseballsTopWeighted = {multiplier: ChartService::BASEBALLS_TOP_WEIGHTED_MULTIPLIER, weights: ChartService::BASEBALLS_TOP_WEIGHTED_WEIGHTS}
+    gon.chartData = @@chart_service.generate_data(year, season)
+    gon.commentFaceLinks = @@github_service.fetch_comment_faces(year, season)
+    erb :'surveys/show', locals: {template: [:survey, :show]}
+  end
+
 end
 
 App.run! if __FILE__ == $0
