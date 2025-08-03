@@ -38,6 +38,19 @@ class App < Sinatra::Base
     @@github_service = GithubService.new(ENV["GITHUB_TOKEN"])
   end
 
+  helpers do
+    def protected!
+      return if authorized?
+      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+      halt 401, "Not authorized\n"
+    end
+
+    def authorized?
+      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+      @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials[-1] == ENV['MOD_PASSWORD']
+    end
+  end
+
   get '/stylesheets/:name.css' do
     scss :"stylesheets/#{params[:name]}"
   end
@@ -52,10 +65,12 @@ class App < Sinatra::Base
   end
 
   get '/surveys/new' do
+    protected!
     erb :'surveys/new', locals: {template: [:survey, :new]}
   end
 
   post '/surveys' do
+    protected!
     sheet_id = params[:sheet_id]
     gid = params[:gid]
     sheet_url = params[:sheet_url]
