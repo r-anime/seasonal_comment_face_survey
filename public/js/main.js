@@ -10,8 +10,8 @@ function loadRatingCharts() {
   const maxValue = Math.max(...Object.values(gon.chartData.ratings)
       .map(data => Math.max(...Object.values(data.ratings))));
   Object.entries(gon.chartData.ratings).forEach(([faceCode, data]) => {
-    const rating = createChart(faceCode, data, maxValue);
-    ratings.appendChild(rating);
+    const chart = createChart('rating', faceCode, data, maxValue);
+    ratings.appendChild(chart);
   });
 }
 
@@ -19,11 +19,19 @@ function loadComparisonCharts() {
 }
 
 function loadHofCharts() {
+  const hofs = document.getElementsByClassName("hall-of-fames")[0];
+
+  const maxValue = Math.max(...Object.values(gon.chartData.hof)
+      .map(data => Math.max(...Object.values(data.ratings))));
+  Object.entries(gon.chartData.hof).forEach(([faceCode, data]) => {
+    const chart = createChart('hall-of-fame', faceCode, data, maxValue);
+    hofs.appendChild(chart);
+  });
 }
 
-function createChart(faceCode, data, maxValue)  {
+function createChart(className, faceCode, data, maxValue) {
   const rating = document.createElement('div');
-  rating.className = 'rating';
+  rating.className = className;
 
   const infoDiv = document.createElement('div');
   rating.appendChild(infoDiv);
@@ -39,15 +47,24 @@ function createChart(faceCode, data, maxValue)  {
   responsesDiv.className = 'sub-title';
   infoDiv.appendChild(responsesDiv);
 
+  if (data.hasOwnProperty('score')) {
+    const scoreDiv = document.createElement('div');
+    scoreDiv.textContent = `Score: ${data.score}`;
+    scoreDiv.className = 'sub-title';
+    infoDiv.appendChild(scoreDiv);
+  }
+
   const avgDiv = document.createElement('div');
   avgDiv.textContent = `Avg: ${data.avg.toFixed(2)}`;
   avgDiv.className = 'sub-title';
   infoDiv.appendChild(avgDiv);
 
-  const weightedDiv = document.createElement('div');
-  weightedDiv.textContent = `Baseball's top weighted: ${data.baseballsTopWeighted.toFixed(2)}`;
-  weightedDiv.className = 'sub-title';
-  infoDiv.appendChild(weightedDiv);
+  if (data.hasOwnProperty('baseballsTopWeighted')) {
+    const weightedDiv = document.createElement('div');
+    weightedDiv.textContent = `Baseball's top weighted: ${data.baseballsTopWeighted.toFixed(2)}`;
+    weightedDiv.className = 'sub-title';
+    infoDiv.appendChild(weightedDiv);
+  }
 
   const image = document.createElement('img');
   infoDiv.appendChild(image);

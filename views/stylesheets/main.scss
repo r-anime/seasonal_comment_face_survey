@@ -5,13 +5,13 @@
     width: 300px;
   }
 
-  .ratings {
+  .ratings, .hall-of-fames {
     display: flex;
     flex-direction: column;
     gap: 50px;
 
 
-    .rating {
+    .rating, .hall-of-fame {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
