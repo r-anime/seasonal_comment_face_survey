@@ -26,14 +26,20 @@
       <div class="ratings-tab">
         <h3>Ratings</h3>
         <div class="sorter-controls"> TODO sorter controls</div>
+        <div class="baseball-explain">Baseball's top weighted is a custom-made metric to favor higher scores. It's
+          calculated by assigning these weights depending on which score:
+          {<%= ChartService::BASEBALLS_TOP_WEIGHTED_WEIGHTS.map { |k, v| "#{k}: #{v}" }.join(", ") %>}
+          And then adding them all together, multiplying by <%= ChartService::BASEBALLS_TOP_WEIGHTED_MULTIPLIER %>, and
+          then dividing by the number of respondents for that question
+        </div>
         <div class="ratings"></div>
       </div>
     </div>
     <div class="tab-pane fade" id="last-seasons-tab-pane" role="tabpanel" aria-labelledby="last-seasons-tab" tabindex="0">
-      <img class="mugiwait" src="https://github.com/r-anime/comment-face-assets/blob/master/source/static/mugiwait/original/mugiwait.jpg?raw=true" />
+      <img class="mugiwait" src="https://github.com/r-anime/comment-face-assets/blob/master/source/static/mugiwait/original/mugiwait.jpg?raw=true"/>
     </div>
     <div class="tab-pane fade" id="hof-tab-pane" role="tabpanel" aria-labelledby="hof-tab" tabindex="0">
-      <img class="mugiwait" src="https://github.com/r-anime/comment-face-assets/blob/master/source/static/mugiwait/original/mugiwait.jpg?raw=true" />
+      <img class="mugiwait" src="https://github.com/r-anime/comment-face-assets/blob/master/source/static/mugiwait/original/mugiwait.jpg?raw=true"/>
     </div>
   </div>
 </div>
