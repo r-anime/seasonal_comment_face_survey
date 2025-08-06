@@ -41,6 +41,7 @@ function createChart(className, faceCode, data, maxValue) {
   infoDiv.appendChild(title);
   title.textContent = `#${faceCode}`;
   title.className = "title";
+  rating.setAttribute('data-name', faceCode);
 
   const responsesDiv = document.createElement('div');
   responsesDiv.textContent = `Responses: ${data.responses}`;
@@ -52,6 +53,7 @@ function createChart(className, faceCode, data, maxValue) {
     scoreDiv.textContent = `Score: ${data.score}`;
     scoreDiv.className = 'sub-title';
     infoDiv.appendChild(scoreDiv);
+    rating.setAttribute('data-score', data.score);
   }
 
   if (data.hasOwnProperty('avg')) {
@@ -59,6 +61,7 @@ function createChart(className, faceCode, data, maxValue) {
     avgDiv.textContent = `Avg: ${data.avg.toFixed(2)}`;
     avgDiv.className = 'sub-title';
     infoDiv.appendChild(avgDiv);
+    rating.setAttribute('data-avg', data.avg);
   }
 
   if (data.hasOwnProperty('baseballsTopWeighted')) {
@@ -66,6 +69,7 @@ function createChart(className, faceCode, data, maxValue) {
     weightedDiv.textContent = `Baseball's top weighted: ${data.baseballsTopWeighted.toFixed(2)}`;
     weightedDiv.className = 'sub-title';
     infoDiv.appendChild(weightedDiv);
+    rating.setAttribute('data-baseball-top-weighted', data.baseballsTopWeighted);
   }
 
   const image = document.createElement('img');
@@ -102,6 +106,54 @@ function createChart(className, faceCode, data, maxValue) {
   });
 
   return rating;
+}
+
+const sortStates = {}; // Keeps sort state per container
+const previousButtons = {}; // Keeps previous button per container
+
+function sortDivs(className, attribute, button, startAscending = false) {
+  const container = document.getElementsByClassName(className)[0];
+  const items = Array.from(container.children);
+
+  // Set up state for this container if it doesn’t exist yet
+  if (!sortStates[className]) {
+    sortStates[className] = { key: '', asc: true };
+  }
+
+  const state = sortStates[className];
+
+  // Update sort direction
+  if (state.key === attribute) {
+    state.asc = !state.asc;
+  } else {
+    state.key = attribute;
+    state.asc = startAscending;
+  }
+
+  // Sort items
+  items.sort((a, b) => {
+    let valA = a.getAttribute(`data-${attribute}`);
+    let valB = b.getAttribute(`data-${attribute}`);
+
+    if (!isNaN(valA) && !isNaN(valB)) {
+      valA = Number(valA);
+      valB = Number(valB);
+    }
+
+    const comparison = valA > valB ? 1 : valA < valB ? -1 : 0;
+    return state.asc ? comparison : -comparison;
+  });
+
+  // Reinsert sorted items
+  items.forEach(item => container.appendChild(item));
+
+  // Update arrows
+  const arrow = state.asc ? '↑' : '↓';
+  if (previousButtons[className] && previousButtons[className] !== button) {
+    previousButtons[className].querySelector('span').textContent = '';
+  }
+  button.querySelector('span').textContent = arrow;
+  previousButtons[className] = button;
 }
 
 function backgroundColors(ratings) {
