@@ -54,10 +54,12 @@ function createChart(className, faceCode, data, maxValue) {
     infoDiv.appendChild(scoreDiv);
   }
 
-  const avgDiv = document.createElement('div');
-  avgDiv.textContent = `Avg: ${data.avg.toFixed(2)}`;
-  avgDiv.className = 'sub-title';
-  infoDiv.appendChild(avgDiv);
+  if (data.hasOwnProperty('avg')) {
+    const avgDiv = document.createElement('div');
+    avgDiv.textContent = `Avg: ${data.avg.toFixed(2)}`;
+    avgDiv.className = 'sub-title';
+    infoDiv.appendChild(avgDiv);
+  }
 
   if (data.hasOwnProperty('baseballsTopWeighted')) {
     const weightedDiv = document.createElement('div');

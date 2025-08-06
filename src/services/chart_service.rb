@@ -82,6 +82,7 @@ class ChartService
     face_scores = face_scores.map do |face_code, hash|
       stats = calculate_stats(hash)
       stats[:ratings].delete(0)
+      stats.delete(:avg)
       [face_code, stats]
     end.to_h
 
