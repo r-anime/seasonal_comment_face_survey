@@ -108,6 +108,7 @@ class App < Sinatra::Base
   get '/surveys/:year/:season' do
     year = params[:year]
     season = params[:season]
+    gon.defaultTab = "#ratings"
     gon.baseballsTopWeighted = {multiplier: ChartService::BASEBALLS_TOP_WEIGHTED_MULTIPLIER, weights: ChartService::BASEBALLS_TOP_WEIGHTED_WEIGHTS}
     gon.chartData = @@chart_service.generate_data(year, season)
     gon.commentFaceLinks = @@github_service.fetch_comment_faces(year, season)

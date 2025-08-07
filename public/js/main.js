@@ -1,7 +1,45 @@
 function loadCharts() {
+  autoSelectTab();
   loadRatingCharts();
   loadComparisonCharts();
   loadHofCharts();
+}
+
+function autoSelectTab() {
+  const hash = window.location.hash || gon.defaultTab;
+
+  selectTab(hash);
+
+  document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(tab => {
+    tab.addEventListener('shown.bs.tab', function (e) {
+      const href = e.target.getAttribute('href');
+      if (window.location.hash !== href) {
+        history.pushState({tab: href}, "", href);
+      } else {
+        history.replaceState({tab: href}, "", href);
+      }
+    });
+  });
+
+  // Handle browser back/forward buttons
+  window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.tab) {
+      selectTab(e.state.tab);
+    }
+  });
+
+  // Push default tab into URL if no hash is present
+  if (!window.location.hash) {
+    history.replaceState({tab: hash}, "", hash);
+  }
+}
+
+function selectTab(hash) {
+  const tabTrigger = document.querySelector(`a[href="${hash}"]`);
+  if (tabTrigger) {
+    const tab = new bootstrap.Tab(tabTrigger);
+    tab.show();
+  }
 }
 
 function loadRatingCharts() {
@@ -117,7 +155,7 @@ function sortDivs(className, attribute, button, startAscending = false) {
 
   // Set up state for this container if it doesn’t exist yet
   if (!sortStates[className]) {
-    sortStates[className] = { key: '', asc: true };
+    sortStates[className] = {key: '', asc: true};
   }
 
   const state = sortStates[className];
