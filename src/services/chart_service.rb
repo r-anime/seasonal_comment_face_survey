@@ -1,9 +1,13 @@
+require 'active_support'
+require 'active_support/cache'
 require 'csv'
 require 'httparty'
 
 require './src/models/survey'
 
 class ChartService
+  CACHE_EXPIRY_TIME = 60 * 15 # 15 minutes
+
   RESPONDENT_ID_FIELD = "Respondent ID"
 
   RATING_QUESTION = "How much do you like ".downcase
@@ -18,11 +22,16 @@ class ChartService
   HOF_QUESTION = /^#seasonal/
   HOF_SCORES = 0..3
 
+  def initialize(cache_dir)
+    @cache = ActiveSupport::Cache::FileStore.new(File.join(cache_dir, "chart_service"), expires_in: CACHE_EXPIRY_TIME)
+  end
+
   def generate_data(year, season)
     survey = Survey.find_by(year: year, season: season)
-    csv_resp = HTTParty.get(csv_download_url(survey.sheet_id, survey.gid))
-    raise "error fetching csv from google sheet: id: #{survey.sheet_id}, gid: #{survey.gid}: #{csv_resp.parsed_response}" unless csv_resp.success?
-    csv = CSV.parse(csv_resp.body, headers: true)
+
+    csv_str = fetch_csv_str(survey)
+
+    csv = CSV.parse(csv_str, headers: true)
 
     dedupped_data = csv.group_by { |row| row[RESPONDENT_ID_FIELD] }.values.map(&:last)
 
@@ -31,6 +40,20 @@ class ChartService
     hof = calculate_hof_data(csv.headers, dedupped_data)
 
     {debug: dedupped_data[0].to_a.to_h, ratings: ratings, last_season_comparisons: last_seasons_comparisons, hof: hof}
+  end
+
+  def fetch_csv_str(survey)
+    url = "https://docs.google.com/spreadsheets/d/#{survey.sheet_id}/export?format=csv&gid=#{survey.gid}"
+    @cache.fetch([:csv, url]) do
+      start = Time.now
+      puts "cache miss: ChartService#fetch_csv_str: #{url}"
+      csv_resp = HTTParty.get(url)
+      raise "error fetching csv from google sheet: id: #{survey.sheet_id}, gid: #{survey.gid}: #{csv_resp.parsed_response}" unless csv_resp.success?
+
+      csv_str = csv_resp.body
+      puts "csv fetch took: #{Time.now - start}"
+      csv_str
+    end
   end
 
   def calculate_ratings_data(csv_headers, dedupped_data)
@@ -108,10 +131,6 @@ class ChartService
     end
     stats[:ratings] = ratings
     stats
-  end
-
-  def csv_download_url(sheet_id, gid)
-    "https://docs.google.com/spreadsheets/d/#{sheet_id}/export?format=csv&gid=#{gid}"
   end
 end
 

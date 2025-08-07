@@ -96,6 +96,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 8.0)
+  activesupport (~> 8.0)
   csv (~> 3.3)
   dotenv (~> 3.1.8)
   gon-sinatra (~> 0.1.2)

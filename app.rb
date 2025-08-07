@@ -12,6 +12,8 @@ require './src/models/survey'
 require './src/services/chart_service'
 require './src/services/github_service'
 
+CACHE_DIR = "/tmp/seasonal_comment_face_survey_cache"
+
 class App < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
@@ -34,8 +36,8 @@ class App < Sinatra::Base
 
   on_start do
     puts "===== Booting up ====="
-    @@chart_service = ChartService.new
-    @@github_service = GithubService.new(ENV["GITHUB_TOKEN"])
+    @@chart_service = ChartService.new(CACHE_DIR)
+    @@github_service = GithubService.new(CACHE_DIR, ENV["GITHUB_TOKEN"])
   end
 
   helpers do
