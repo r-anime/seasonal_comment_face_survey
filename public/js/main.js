@@ -126,7 +126,7 @@ function createChart(className, faceCode, data, maxValue) {
   new Chart(canvas.getContext('2d'), {
     type: 'bar', data: {
       datasets: [{
-        label: 'Rating count', data: data.ratings, backgroundColor: backgroundColors(data.ratings)
+        label: '# Answers', data: data.ratings, backgroundColor: backgroundColors(data.ratings)
       }]
     }, options: {
       responsive: true, maintainAspectRatio: false, scales: {
