@@ -22,6 +22,8 @@ class ChartService
   HOF_QUESTION = /^#seasonal/
   HOF_SCORES = 0..3
 
+  MISC_QUESTIONS = [{question_regex: /Google Forms/i, type: :linear, min: 0, max: 10}] # TODO make part of DB
+
   def initialize(cache_dir)
     @cache = ActiveSupport::Cache::FileStore.new(File.join(cache_dir, "chart_service"), expires_in: CACHE_EXPIRY_TIME)
   end
@@ -38,8 +40,9 @@ class ChartService
     ratings = calculate_ratings_data(csv.headers, dedupped_data)
     last_seasons_comparisons = calculate_last_seasons_comparisons_data(csv.headers, dedupped_data)
     hof = calculate_hof_data(csv.headers, dedupped_data)
+    misc = calculate_misc_data(csv.headers, dedupped_data)
 
-    {debug: dedupped_data[0].to_a.to_h, ratings: ratings, last_season_comparisons: last_seasons_comparisons, hof: hof}
+    {debug: dedupped_data[0].to_a.to_h, ratings: ratings, last_season_comparisons: last_seasons_comparisons, hof: hof, misc: misc}
   end
 
   def fetch_csv_str(survey)
@@ -110,6 +113,32 @@ class ChartService
     end.to_h
 
     face_scores
+  end
+
+  def calculate_misc_data(csv_headers, dedupped_data)
+    MISC_QUESTIONS.map do |misc|
+      question, index = csv_headers.each_with_index
+                                   .select { |(question, _index)| question.downcase.match?(misc[:question_regex]) }
+                                   .map { |question, index| [question, index] }
+                                   .first(1)[0]
+      {question: question, type: misc[:type], data: calc_misc_linear(dedupped_data, index, misc[:min]..misc[:max])}
+    end
+  end
+
+  def calc_misc_linear(dedupped_data, index, range)
+    scores = range.map { |score| [score, 0] }.to_h
+
+    dedupped_data.each do |row|
+      score_str = row[index]
+      next unless score_str
+      score = score_str.to_i
+      scores[score] += 1
+    end
+
+    stats = calculate_stats(scores, false)
+    stats.delete(:score)
+
+    stats
   end
 
   def calculate_stats(ratings, include_baseballs_top_weighted = false)

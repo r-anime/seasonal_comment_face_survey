@@ -10,7 +10,6 @@
     flex-direction: column;
     gap: 50px;
 
-
     .rating, .hall-of-fame {
       display: flex;
       flex-direction: row;
@@ -23,6 +22,28 @@
           width: 500px;
           margin-bottom: 27px;
         }
+      }
+
+      .chart-wrapper {
+        width: 100%;
+      }
+    }
+  }
+
+  .miscs {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    .misc {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 50px;
+
+      .info-section {
+        flex-basis: content;
+        height: 300px;
       }
 
       .chart-wrapper {

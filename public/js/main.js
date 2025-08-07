@@ -3,6 +3,7 @@ function loadCharts() {
   loadRatingCharts();
   loadComparisonCharts();
   loadHofCharts();
+  loadMiscCharts();
 }
 
 function autoSelectTab() {
@@ -48,7 +49,7 @@ function loadRatingCharts() {
   const maxValue = Math.max(...Object.values(gon.chartData.ratings)
       .map(data => Math.max(...Object.values(data.ratings))));
   Object.entries(gon.chartData.ratings).forEach(([faceCode, data]) => {
-    const chart = createChart('rating', faceCode, data, maxValue);
+    const chart = createFaceChart('rating', faceCode, data, maxValue);
     ratings.appendChild(chart);
   });
 }
@@ -62,12 +63,28 @@ function loadHofCharts() {
   const maxValue = Math.max(...Object.values(gon.chartData.hof)
       .map(data => Math.max(...Object.values(data.ratings))));
   Object.entries(gon.chartData.hof).forEach(([faceCode, data]) => {
-    const chart = createChart('hall-of-fame', faceCode, data, maxValue);
+    const chart = createFaceChart('hall-of-fame', faceCode, data, maxValue);
     hofs.appendChild(chart);
   });
 }
 
-function createChart(className, faceCode, data, maxValue) {
+function loadMiscCharts() {
+  const miscs = document.getElementsByClassName("miscs")[0];
+
+  gon.chartData.misc.forEach(data => {
+    let chart;
+    switch (data.type) {
+      case 'linear':
+        chart = createLinearChart('misc', data.question, data.data);
+        break;
+      default:
+        console.error(`unsupported misc question type ${data.type}`);
+    }
+    miscs.appendChild(chart);
+  });
+}
+
+function createFaceChart(className, faceCode, data, maxValue) {
   const rating = document.createElement('div');
   rating.className = className;
 
@@ -120,8 +137,66 @@ function createChart(className, faceCode, data, maxValue) {
   rating.appendChild(chartWrapper);
   chartWrapper.className = "chart-wrapper";
 
+  chartWrapper.appendChild(createChartElement(data, maxValue));
+
+  return rating;
+}
+
+function createLinearChart(className, question, data) {
+  const rating = document.createElement('div');
+  rating.className = className;
+
+  const infoDiv = document.createElement('div');
+  rating.appendChild(infoDiv);
+  infoDiv.className = 'info-section';
+
+  const title = document.createElement('h4');
+  infoDiv.appendChild(title);
+  title.textContent = question;
+  title.className = "title";
+  rating.setAttribute('data-name', question);
+
+  const responsesDiv = document.createElement('div');
+  responsesDiv.textContent = `Responses: ${data.responses}`;
+  responsesDiv.className = 'sub-title';
+  infoDiv.appendChild(responsesDiv);
+
+  if (data.hasOwnProperty('score')) {
+    const scoreDiv = document.createElement('div');
+    scoreDiv.textContent = `Score: ${data.score}`;
+    scoreDiv.className = 'sub-title';
+    infoDiv.appendChild(scoreDiv);
+    rating.setAttribute('data-score', data.score);
+  }
+
+  if (data.hasOwnProperty('avg')) {
+    const avgDiv = document.createElement('div');
+    avgDiv.textContent = `Avg: ${data.avg.toFixed(2)}`;
+    avgDiv.className = 'sub-title';
+    infoDiv.appendChild(avgDiv);
+    rating.setAttribute('data-avg', data.avg);
+  }
+
+  if (data.hasOwnProperty('baseballsTopWeighted')) {
+    const weightedDiv = document.createElement('div');
+    weightedDiv.textContent = `Baseball's top weighted: ${data.baseballsTopWeighted.toFixed(2)}`;
+    weightedDiv.className = 'sub-title';
+    infoDiv.appendChild(weightedDiv);
+    rating.setAttribute('data-baseball-top-weighted', data.baseballsTopWeighted);
+  }
+
+  const chartWrapper = document.createElement('div');
+  rating.appendChild(chartWrapper);
+  chartWrapper.className = "chart-wrapper";
+
+  const maxValue = Math.max(...Object.values(data.ratings));
+  chartWrapper.appendChild(createChartElement(data, maxValue));
+
+  return rating;
+}
+
+function createChartElement(data, maxValue) {
   const canvas = document.createElement('canvas');
-  chartWrapper.appendChild(canvas);
 
   new Chart(canvas.getContext('2d'), {
     type: 'bar', data: {
@@ -143,7 +218,7 @@ function createChart(className, faceCode, data, maxValue) {
     }
   });
 
-  return rating;
+  return canvas;
 }
 
 const sortStates = {}; // Keeps sort state per container

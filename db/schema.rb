@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_26_074446) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_063710) do
   create_table "surveys", force: :cascade do |t|
     t.integer "year", null: false
     t.string "season", null: false
@@ -19,5 +19,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_074446) do
     t.string "gid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "misc"
   end
 end

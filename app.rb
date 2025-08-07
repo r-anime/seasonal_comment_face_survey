@@ -94,7 +94,8 @@ class App < Sinatra::Base
       season: params[:season],
       name: params[:name],
       sheet_id: sheet_id,
-      gid: gid
+      gid: gid,
+      misc: {} # TODO
     )
 
     if survey.save
