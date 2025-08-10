@@ -49,12 +49,20 @@ function loadRatingCharts() {
   const maxValue = Math.max(...Object.values(gon.chartData.ratings)
       .map(data => Math.max(...Object.values(data.ratings))));
   Object.entries(gon.chartData.ratings).forEach(([faceCode, data]) => {
-    const chart = createFaceChart('rating', faceCode, data, maxValue);
+    const chart = createFaceChart('rating', faceCode, data, maxValue, false);
     ratings.appendChild(chart);
   });
 }
 
 function loadComparisonCharts() {
+  const ratings = document.getElementsByClassName("last-seasons")[0];
+
+  const maxValue = Math.max(...Object.values(gon.chartData.lastSeasonComparisons)
+      .map(data => Math.max(...Object.values(data.ratings))));
+  Object.entries(gon.chartData.lastSeasonComparisons).forEach(([faceCode, data]) => {
+    const chart = createFaceChart('last-season', faceCode, data, maxValue, true);
+    ratings.appendChild(chart);
+  });
 }
 
 function loadHofCharts() {
@@ -63,7 +71,7 @@ function loadHofCharts() {
   const maxValue = Math.max(...Object.values(gon.chartData.hof)
       .map(data => Math.max(...Object.values(data.ratings))));
   Object.entries(gon.chartData.hof).forEach(([faceCode, data]) => {
-    const chart = createFaceChart('hall-of-fame', faceCode, data, maxValue);
+    const chart = createFaceChart('hall-of-fame', faceCode, data, maxValue, false);
     hofs.appendChild(chart);
   });
 }
@@ -84,30 +92,38 @@ function loadMiscCharts() {
   });
 }
 
-function createFaceChart(className, faceCode, data, maxValue) {
+function createFaceChart(className, faceCode, data, maxValue, lastSeason) {
   const rating = document.createElement('div');
   rating.className = className;
 
   const infoDiv = document.createElement('div');
-  rating.appendChild(infoDiv);
   infoDiv.className = 'info-section';
+  const infoDivPrevSeason = document.createElement('div');
+  infoDivPrevSeason.className = 'info-section';
+
+  const leftDataDiv = (lastSeason && gon.prevCommentFaceLinks[faceCode]) ? infoDivPrevSeason : infoDiv;
+  const rightDataDiv = infoDiv;
 
   const title = document.createElement('h4');
-  infoDiv.appendChild(title);
-  title.textContent = `#${faceCode}`;
+  leftDataDiv.appendChild(title);
+  if (lastSeason && gon.prevCommentFaceLinks[faceCode]) {
+    title.textContent = `#${data.question}`;
+  } else {
+    title.textContent = `#${faceCode}`;
+  }
   title.className = "title";
   rating.setAttribute('data-name', faceCode);
 
   const responsesDiv = document.createElement('div');
   responsesDiv.textContent = `Responses: ${data.responses}`;
   responsesDiv.className = 'sub-title';
-  infoDiv.appendChild(responsesDiv);
+  rightDataDiv.appendChild(responsesDiv);
 
   if (data.hasOwnProperty('score')) {
     const scoreDiv = document.createElement('div');
     scoreDiv.textContent = `Score: ${data.score}`;
     scoreDiv.className = 'sub-title';
-    infoDiv.appendChild(scoreDiv);
+    rightDataDiv.appendChild(scoreDiv);
     rating.setAttribute('data-score', data.score);
   }
 
@@ -115,7 +131,7 @@ function createFaceChart(className, faceCode, data, maxValue) {
     const avgDiv = document.createElement('div');
     avgDiv.textContent = `Avg: ${data.avg.toFixed(2)}`;
     avgDiv.className = 'sub-title';
-    infoDiv.appendChild(avgDiv);
+    rightDataDiv.appendChild(avgDiv);
     rating.setAttribute('data-avg', data.avg);
   }
 
@@ -123,21 +139,57 @@ function createFaceChart(className, faceCode, data, maxValue) {
     const weightedDiv = document.createElement('div');
     weightedDiv.textContent = `Baseball's top weighted: ${data.baseballsTopWeighted.toFixed(2)}`;
     weightedDiv.className = 'sub-title';
-    infoDiv.appendChild(weightedDiv);
+    rightDataDiv.appendChild(weightedDiv);
     rating.setAttribute('data-baseball-top-weighted', data.baseballsTopWeighted);
   }
 
-  const image = document.createElement('img');
-  infoDiv.appendChild(image);
-  image.className = "comment-face-image";
-  image.src = gon.commentFaceLinks[faceCode];
-  image.alt = `#${faceCode};`
+  const faceCodeStr = `${gon.seasons.current.season} ${gon.seasons.current.year} #${faceCode}`;
+
+  const imageContainer = document.createElement('div');
+  rightDataDiv.appendChild(imageContainer);
+  imageContainer.className = "image-container";
+
+  const imageIdDiv = document.createElement('div');
+  imageContainer.appendChild(imageIdDiv);
+  imageIdDiv.textContent = faceCodeStr;
+  imageIdDiv.className = 'face-id';
+
+  const currentSeasonImage = document.createElement('img');
+  imageContainer.appendChild(currentSeasonImage);
+  currentSeasonImage.className = "comment-face-image";
+  currentSeasonImage.src = gon.commentFaceLinks[faceCode];
+  currentSeasonImage.alt = faceCodeStr;
 
   const chartWrapper = document.createElement('div');
-  rating.appendChild(chartWrapper);
   chartWrapper.className = "chart-wrapper";
 
   chartWrapper.appendChild(createChartElement(data, maxValue));
+
+  if (lastSeason && gon.prevCommentFaceLinks[faceCode]) {
+    const prevFaceCodeStr = `${gon.seasons.prev.season} ${gon.seasons.prev.year} #${faceCode}`;
+
+    const imageContainer = document.createElement('div');
+    infoDivPrevSeason.appendChild(imageContainer);
+    imageContainer.className = "image-container";
+
+    const prevSeasonImageIdDiv = document.createElement('div');
+    imageContainer.appendChild(prevSeasonImageIdDiv);
+    prevSeasonImageIdDiv.textContent = prevFaceCodeStr;
+    prevSeasonImageIdDiv.className = 'face-id';
+
+    const prevSeasonImage = document.createElement('img');
+    imageContainer.appendChild(prevSeasonImage);
+    prevSeasonImage.className = "comment-face-image";
+    prevSeasonImage.src = gon.prevCommentFaceLinks[faceCode];
+    prevSeasonImage.alt = prevFaceCodeStr;
+
+    rating.appendChild(infoDivPrevSeason);
+    rating.appendChild(chartWrapper);
+    rating.appendChild(infoDiv);
+  } else {
+    rating.appendChild(infoDiv);
+    rating.appendChild(chartWrapper);
+  }
 
   return rating;
 }

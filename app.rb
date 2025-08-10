@@ -48,7 +48,7 @@ class App < Sinatra::Base
     end
 
     def authorized?
-      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+      @auth ||= Rack::Auth::Basic::Request.new(request.env)
       @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials[-1] == ENV['MOD_PASSWORD']
     end
   end
@@ -107,12 +107,17 @@ class App < Sinatra::Base
   end
 
   get '/surveys/:year/:season' do
-    year = params[:year]
+    year = params[:year].to_i
     season = params[:season]
     gon.defaultTab = "#ratings"
     gon.baseballsTopWeighted = {multiplier: ChartService::BASEBALLS_TOP_WEIGHTED_MULTIPLIER, weights: ChartService::BASEBALLS_TOP_WEIGHTED_WEIGHTS}
     gon.chartData = @@chart_service.generate_data(year, season)
     gon.commentFaceLinks = @@github_service.fetch_comment_faces(year, season)
+    gon.prevCommentFaceLinks = @@github_service.fetch_prev_comment_faces(year, season)
+    gon.seasons = {
+      current: {year: year, season: season.capitalize},
+      prev: {year: @@github_service.get_prev_season(year, season)[0], season: @@github_service.get_prev_season(year, season)[1].capitalize}
+    }
     erb :'surveys/show', locals: {template: [:survey, :show]}
   end
 

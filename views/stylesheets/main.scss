@@ -5,6 +5,11 @@
     width: 300px;
   }
 
+  .face-id {
+    margin-top: 15px;
+    font-size: 1.25rem;
+  }
+
   .ratings, .hall-of-fames {
     display: flex;
     flex-direction: column;
@@ -18,8 +23,38 @@
 
       .info-section {
         flex-basis: content;
+
         .comment-face-image {
           width: 500px;
+          margin-bottom: 27px;
+        }
+      }
+
+      .chart-wrapper {
+        width: 100%;
+      }
+    }
+  }
+
+  .last-seasons {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    .last-season {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 25px;
+
+      .info-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-basis: content;
+
+        .comment-face-image {
+          width: 333px;
           margin-bottom: 27px;
         }
       }

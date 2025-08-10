@@ -20,22 +20,8 @@ BASE_URL = "https://api.tally.so"
 GET_WORKSPACES = "/workspaces"
 FORMS = "/forms"
 
-PREV_SEASON = {
-  "winter" => [-1, "fall"],
-  "fall" => [0, "summer"],
-  "summer" => [0, "spring"],
-  "spring" => [0, "winter"],
-}
-
-NEXT_SEASON = {
-  "winter" => [0, "spring"],
-  "spring" => [0, "summer"],
-  "summer" => [0, "fall"],
-  "fall" => [1, "winter"],
-}
-
 def main(year, season)
-  raise "invalid season: #{season}" unless PREV_SEASON.include?(season)
+  raise "invalid season: #{season}" unless GithubService::PREV_SEASON.include?(season)
 
   @github_service = GithubService.new(GITHUB_TOKEN)
 
@@ -164,7 +150,7 @@ def update_form(form_id, title, mention_ids, blocks)
 end
 
 def calculate_survey_blocks(comment_faces, mention_ids, year, season)
-  prev_comment_faces = @github_service.fetch_comment_faces(PREV_SEASON[season][0] + year, PREV_SEASON[season][1])
+  prev_comment_faces = @github_service.fetch_prev_comment_faces(year, season)
   calculate_rating_blocks(comment_faces) +
     [{
        "uuid": SecureRandom.uuid,
@@ -792,8 +778,8 @@ def calculate_thank_you_page_blocks(title, mention_ids)
 end
 
 def get_survey_title(year, season)
-  next_season = NEXT_SEASON[season]
-  "#{next_season[1].capitalize} #{next_season[0] + year} Seasonal Face Survey (for #{season.capitalize} #{year})"
+  next_season = get_next_season(year, season)
+  "#{next_season[1].capitalize} #{next_season[0]} Seasonal Face Survey (for #{season.capitalize} #{year})"
 end
 
 main ARGV[0].to_i, ARGV[1]

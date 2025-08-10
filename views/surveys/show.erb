@@ -49,7 +49,16 @@
       </div>
     </div>
     <div class="tab-pane fade" id="last-seasons-tab-pane" role="tabpanel" aria-labelledby="last-seasons-tab" tabindex="0">
-      <img class="mugiwait" src="https://github.com/r-anime/comment-face-assets/blob/master/source/static/mugiwait/original/mugiwait.jpg?raw=true"/>
+      <div class="last-seasons-tab">
+        <h3>Comparison Against Last Season's Comment Faces</h3>
+        <div class="sorter-controls">
+          <div class="mb-2">
+            <button onclick="sortDivs('last-seasons', 'name', this, true)">Name <span></span></button>
+            <button onclick="sortDivs('last-seasons', 'avg', this, false)">Avg <span></span></button>
+          </div>
+        </div>
+        <div class="last-seasons"></div>
+      </div>
     </div>
     <div class="tab-pane fade" id="hall-of-fame-tab-pane" role="tabpanel" aria-labelledby="hall-of-fame-tab" tabindex="0">
       <div class="hall-of-fame-tab">

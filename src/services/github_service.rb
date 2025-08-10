@@ -9,11 +9,37 @@ class GithubService
 
   CACHE_EXPIRY_TIME = 60 * 60 * 24 #
 
+  PREV_SEASON = {
+    "winter" => [-1, "fall"],
+    "fall" => [0, "summer"],
+    "summer" => [0, "spring"],
+    "spring" => [0, "winter"],
+  }
+
+  NEXT_SEASON = {
+    "winter" => [0, "spring"],
+    "spring" => [0, "summer"],
+    "summer" => [0, "fall"],
+    "fall" => [1, "winter"],
+  }
+
   def initialize(cache_dir, token = nil)
     @cache = ActiveSupport::Cache::FileStore.new(File.join(cache_dir, "github_service"), expires_in: CACHE_EXPIRY_TIME)
     @token = token
     @headers = {}
     @headers["Authorization"] = "Bearer #{@token}" if @token
+  end
+
+  def get_next_season(year, season)
+    [year + NEXT_SEASON[season][0], NEXT_SEASON[season][1]]
+  end
+
+  def get_prev_season(year, season)
+    [year + PREV_SEASON[season][0], PREV_SEASON[season][1]]
+  end
+
+  def fetch_prev_comment_faces(year, season)
+    fetch_comment_faces(*get_prev_season(year, season))
   end
 
   def fetch_comment_faces(year, season)

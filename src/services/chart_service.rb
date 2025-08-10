@@ -42,7 +42,7 @@ class ChartService
     hof = calculate_hof_data(csv.headers, dedupped_data)
     misc = calculate_misc_data(csv.headers, dedupped_data)
 
-    {debug: dedupped_data[0].to_a.to_h, ratings: ratings, last_season_comparisons: last_seasons_comparisons, hof: hof, misc: misc}
+    {debug: dedupped_data[0].to_a.to_h, ratings: ratings, lastSeasonComparisons: last_seasons_comparisons, hof: hof, misc: misc}
   end
 
   def fetch_csv_str(survey)
@@ -82,11 +82,41 @@ class ChartService
       [face_code, stats]
     end.to_h
 
+    indexes.each do |face_code, index|
+      face_scores[face_code]["question"] = csv_headers[index]
+    end
+
     face_scores
   end
 
   def calculate_last_seasons_comparisons_data(csv_headers, dedupped_data)
-    []
+    face_scores = Hash.new { |h, k| h[k] = LAST_SEASONS_COMPARISONS_SCORES.map { |score| [score, 0] }.to_h }
+    indexes = csv_headers.each_with_index
+                         .select { |(question, _index)| question.downcase.include?(LAST_SEASONS_COMPARISON_QUESTION) }
+                         .map { |question, index| [question[/#(\w+\b)/, 1], index] }
+                         .to_h
+
+    dedupped_data.each do |row|
+      indexes.each do |face_code, index|
+        face_scores[face_code][0]
+        score_str = row[index]
+        next unless score_str
+        score = score_str.to_i
+        face_scores[face_code][score] += 1
+      end
+    end
+
+    face_scores = face_scores.map do |face_code, hash|
+      stats = calculate_stats(hash, false)
+      stats.delete(:score)
+      [face_code, stats]
+    end.to_h
+
+    indexes.each do |face_code, index|
+      face_scores[face_code]["question"] = csv_headers[index]
+    end
+
+    face_scores
   end
 
   def calculate_hof_data(csv_headers, dedupped_data)
@@ -111,6 +141,10 @@ class ChartService
       stats.delete(:avg)
       [face_code, stats]
     end.to_h
+
+    indexes.each do |face_code, index|
+      face_scores[face_code]["question"] = csv_headers[index]
+    end
 
     face_scores
   end
