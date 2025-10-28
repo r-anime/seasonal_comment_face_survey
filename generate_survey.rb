@@ -1,6 +1,7 @@
 require 'dotenv/load'
 require 'httparty'
 require 'securerandom'
+require_relative './src/services/github_service'
 
 POINTS_TO_ALLOCATE = 6
 POINTS_ALLOTTED_MAX = 3
@@ -778,7 +779,7 @@ def calculate_thank_you_page_blocks(title, mention_ids)
 end
 
 def get_survey_title(year, season)
-  next_season = get_next_season(year, season)
+  next_season = @github_service.get_next_season(year, season)
   "#{next_season[1].capitalize} #{next_season[0]} Seasonal Face Survey (for #{season.capitalize} #{year})"
 end
 
