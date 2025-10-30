@@ -31,7 +31,7 @@ class App < Sinatra::Base
   after do
     end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     duration = end_time - @start_time
-    puts "[#{request.request_method}] #{request.path} took #{(duration * 1000).round(2)} ms"
+    puts "#{Time.now} [#{request.request_method}] #{request.path} took #{(duration * 1000).round(2)} ms"
   end
 
   on_start do
