@@ -62,12 +62,12 @@ class GithubService
     url = COMMENT_FACE_GITHUB + "#{year}%20#{season}"
     @cache.fetch([:tree_sha, url]) do
       start = Time.now
-      puts "cache miss: GithubService#fetch_tree_sha: #{url}"
+      $logger.info "cache miss: GithubService#fetch_tree_sha: #{url}"
       tree_sha_resp = HTTParty.get(url, headers: @headers)
       raise "error fetching comment faces tree sha from r/anime comment-face-assets github repo: #{tree_sha_resp}" unless tree_sha_resp.success?
 
       tree_sha = tree_sha_resp.parsed_response.find { |git| git["name"] == "source" }&.[]("sha")
-      puts "tree sha took: #{Time.now - start}"
+      $logger.info "tree sha took: #{Time.now - start}"
       tree_sha
     end
   end
@@ -76,12 +76,12 @@ class GithubService
     url = COMMENT_FACE_TREE_GITHUB + tree_sha + "?recursive=true"
     @cache.fetch([:tree_json, url]) do
       start = Time.now
-      puts "cache miss: GithubService#fetch_tree_json: #{url}"
+      $logger.info "cache miss: GithubService#fetch_tree_json: #{url}"
       tree_resp = HTTParty.get(url, headers: @headers)
       raise "error fetching comment faces tree from r/anime comment-face-assets github repo: #{tree_resp}" unless tree_resp.success?
 
       json = tree_resp.parsed_response
-      puts "tree json took: #{Time.now - start}"
+      $logger.info "tree json took: #{Time.now - start}"
       json
     end
   end

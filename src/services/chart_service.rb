@@ -49,12 +49,12 @@ class ChartService
     url = "https://docs.google.com/spreadsheets/d/#{survey.sheet_id}/export?format=csv&gid=#{survey.gid}"
     @cache.fetch([:csv, url]) do
       start = Time.now
-      puts "cache miss: ChartService#fetch_csv_str: #{url}"
+      $logger.info "cache miss: ChartService#fetch_csv_str: #{url}"
       csv_resp = HTTParty.get(url)
       raise "error fetching csv from google sheet: id: #{survey.sheet_id}, gid: #{survey.gid}: #{csv_resp.parsed_response}" unless csv_resp.success?
 
       csv_str = csv_resp.body
-      puts "csv fetch took: #{Time.now - start}"
+      $logger.info "csv fetch took: #{Time.now - start}"
       csv_str
     end
   end

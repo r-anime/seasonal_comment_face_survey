@@ -1,4 +1,7 @@
 require 'dotenv/load'
+require 'logger'
+$logger = Logger.new($stdout)
+
 require 'sassc'
 require 'sinatra'
 require 'sinatra/activerecord'
@@ -31,11 +34,11 @@ class App < Sinatra::Base
   after do
     end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     duration = end_time - @start_time
-    puts "#{Time.now} [#{request.request_method}] #{request.path} took #{(duration * 1000).round(2)} ms"
+    $logger.info "#{Time.now} [#{request.request_method}] #{request.path} took #{(duration * 1000).round(2)} ms"
   end
 
   on_start do
-    puts "===== Booting up ====="
+    $logger.info "===== Booting up ====="
     @@chart_service = ChartService.new(CACHE_DIR)
     @@github_service = GithubService.new(CACHE_DIR, ENV["GITHUB_TOKEN"])
   end

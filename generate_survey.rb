@@ -27,15 +27,15 @@ def main(year, season)
   @github_service = GithubService.new(GITHUB_TOKEN)
 
   comment_faces = @github_service.fetch_comment_faces(year, season)
-  puts "comment_faces: #{comment_faces}"
+  $logger.info "comment_faces: #{comment_faces}"
 
   existing_form_id = fetch_existing_form(year, season)
   # existing_form_id = nil
   if existing_form_id.nil?
-    puts "creating new survey"
+    $logger.info "creating new survey"
     existing_form_id = create_new_survey(year, season)
   end
-  puts "existing_form_id: #{existing_form_id}"
+  $logger.info "existing_form_id: #{existing_form_id}"
 
   mention_ids = {
     points: {
@@ -50,7 +50,7 @@ def main(year, season)
   }
   blocks = calculate_survey_blocks(comment_faces, mention_ids, year, season)
   update_form(existing_form_id, get_survey_title(year, season), mention_ids, blocks)
-  # puts "fetch_workspace: #{fetch_workspace}"
+  # $logger.info "fetch_workspace: #{fetch_workspace}"
 end
 
 def fetch_existing_form(year, season)
@@ -142,7 +142,7 @@ def update_form(form_id, title, mention_ids, blocks)
       # }
     }
   }
-  # puts "body: #{body}"
+  # $logger.info "body: #{body}"
   File.write("body.json", body.to_json)
   resp = HTTParty.patch(BASE_URL + FORMS + "/" + form_id, body: body.to_json,
                         headers: {"Authorization" => "Bearer #{API_KEY}", "Content-Type" => "application/json"})
