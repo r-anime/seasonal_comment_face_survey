@@ -1,4 +1,7 @@
 require 'dotenv/load'
+require 'logger'
+$logger = Logger.new($stdout)
+
 require 'httparty'
 require 'securerandom'
 require_relative './src/services/github_service'
@@ -20,11 +23,12 @@ BASE_URL = "https://api.tally.so"
 
 GET_WORKSPACES = "/workspaces"
 FORMS = "/forms"
+CACHE_DIR = "/tmp/seasonal_comment_face_survey_cache"
 
 def main(year, season)
   raise "invalid season: #{season}" unless GithubService::PREV_SEASON.include?(season)
 
-  @github_service = GithubService.new(GITHUB_TOKEN)
+  @github_service = GithubService.new(CACHE_DIR, GITHUB_TOKEN)
 
   comment_faces = @github_service.fetch_comment_faces(year, season)
   $logger.info "comment_faces: #{comment_faces}"
