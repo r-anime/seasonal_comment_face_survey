@@ -124,6 +124,21 @@ class App < Sinatra::Base
     erb :'surveys/show', locals: {template: [:survey, :show]}
   end
 
+  get '/surveys/:year/:season/clear_cache' do
+    expire_survey(params)
+  end
+
+  post '/surveys/:year/:season/clear_cache' do
+    expire_survey(params)
+  end
+
+  def expire_survey(params)
+    year = params[:year].to_i
+    season = params[:season]
+    @@chart_service.expire(year, season)
+
+    redirect "/surveys/#{year}/#{season}"
+  end
 end
 
 App.run! if __FILE__ == $0

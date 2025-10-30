@@ -6,7 +6,7 @@ require 'httparty'
 require './src/models/survey'
 
 class ChartService
-  CACHE_EXPIRY_TIME = 60 * 15 # 15 minutes
+  CACHE_EXPIRY_TIME = 60 * 60 * 1 # 1 hour
 
   RESPONDENT_ID_FIELD = "Respondent ID"
 
@@ -194,6 +194,12 @@ class ChartService
     end
     stats[:ratings] = ratings
     stats
+  end
+
+  def expire(year, season)
+    survey = Survey.find_by(year: year, season: season)
+    url = "https://docs.google.com/spreadsheets/d/#{survey.sheet_id}/export?format=csv&gid=#{survey.gid}"
+    $logger.info "expired #{survey.name}" if @cache.delete([:csv, url])
   end
 end
 
