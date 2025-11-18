@@ -1,20 +1,30 @@
-FROM ruby:3.4.7-alpine
+FROM ruby:3.4.7-alpine AS builder
 
 ENV APP_HOME=/app
+WORKDIR $APP_HOME
 
 RUN apk add --no-cache \
       build-base \
       sqlite-dev \
-      libffi-dev \
-      tzdata \
-      git \
-      bash
+      tzdata
 
-WORKDIR $APP_HOME
+RUN gem update --system
 
 COPY Gemfile Gemfile.lock ./
 
-RUN bundle install
+RUN bundle config set without 'development test' && bundle install
+
+FROM ruby:3.4.7-alpine AS runtime
+
+ENV APP_HOME=/app
+WORKDIR $APP_HOME
+
+RUN apk add --no-cache \
+      sqlite \
+      bash
+
+# copy over deps
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
 COPY . .
 
@@ -25,4 +35,4 @@ ENV GIT_REPO_URL=$GIT_REPO_URL
 
 EXPOSE 4567
 
-CMD ["ruby", "app.rb"]
+CMD ["bundle", "exec", "ruby", "app.rb"]

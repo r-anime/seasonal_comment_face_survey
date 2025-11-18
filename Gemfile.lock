@@ -27,10 +27,11 @@ GEM
     csv (3.3.5)
     dotenv (3.1.8)
     drb (2.2.3)
-    ffi (1.17.2)
-    ffi (1.17.2-x86_64-linux-gnu)
     gon-sinatra (0.1.2)
       sinatra
+    google-protobuf (4.33.1-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
     httparty (0.23.2)
       csv
       mini_mime (>= 1.0.0)
@@ -40,7 +41,6 @@ GEM
     json (2.15.2)
     logger (1.7.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.9)
     minitest (5.26.0)
     multi_json (1.17.0)
     multi_xml (0.7.2)
@@ -62,8 +62,8 @@ GEM
       rack (>= 3)
     rake (13.3.0)
     ruby2_keywords (0.0.5)
-    sassc (2.4.0)
-      ffi (~> 1.9)
+    sass-embedded (1.94.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
     securerandom (0.4.1)
     sinatra (4.1.1)
       logger (>= 1.6.0)
@@ -81,8 +81,6 @@ GEM
       rack-protection (= 4.1.1)
       sinatra (= 4.1.1)
       tilt (~> 2.0)
-    sqlite3 (2.7.4)
-      mini_portile2 (~> 2.8.0)
     sqlite3 (2.7.4-x86_64-linux-gnu)
     tilt (2.6.1)
     timeout (0.4.3)
@@ -91,7 +89,6 @@ GEM
     uri (1.0.4)
 
 PLATFORMS
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -104,11 +101,14 @@ DEPENDENCIES
   puma (~> 6.6)
   rackup (~> 2.2)
   rake (~> 13.3)
-  sassc (~> 2.4)
+  sass-embedded (~> 1.94)
   sinatra (~> 4.1.1)
   sinatra-activerecord (~> 2.0)
   sinatra-contrib
   sqlite3 (~> 2.7)
+
+RUBY VERSION
+   ruby 3.4.7p58
 
 BUNDLED WITH
    2.7.2
