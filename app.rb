@@ -2,7 +2,7 @@ require 'dotenv/load'
 require 'logger'
 $logger = Logger.new($stdout)
 
-require 'sassc'
+require 'sass-embedded'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/reloader' if development?

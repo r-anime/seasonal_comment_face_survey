@@ -6,6 +6,8 @@ services:
     build: .
     restart: always
     env_file: .env
+    ports:
+      - "127.0.0.1:4567:4567"
     volumes:
       - ./db.sqlite3:/app/db.sqlite3
     depends_on:
