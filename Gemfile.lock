@@ -68,6 +68,22 @@ GEM
     sass-embedded (1.97.1)
       google-protobuf (~> 4.31)
       rake (>= 13)
+    sass-embedded (1.97.1-aarch64-linux-android)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-arm-linux-androideabi)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-arm-linux-musleabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-riscv64-linux-android)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-riscv64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-riscv64-linux-musl)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.1-x86_64-linux-android)
+      google-protobuf (~> 4.31)
     sass-embedded (1.97.1-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     securerandom (0.4.1)
@@ -89,6 +105,8 @@ GEM
       tilt (~> 2.0)
     sqlite3 (2.9.0)
       mini_portile2 (~> 2.8.0)
+    sqlite3 (2.9.0-arm-linux-gnu)
+    sqlite3 (2.9.0-arm-linux-musl)
     sqlite3 (2.9.0-x86_64-linux-gnu)
     tilt (2.6.1)
     timeout (0.6.0)
@@ -97,8 +115,18 @@ GEM
     uri (1.1.1)
 
 PLATFORMS
+  aarch64-linux-android
+  arm-linux-androideabi
+  arm-linux-gnu
+  arm-linux-gnueabihf
+  arm-linux-musl
+  arm-linux-musleabihf
+  riscv64-linux-android
+  riscv64-linux-gnu
+  riscv64-linux-musl
   ruby
   x86_64-linux
+  x86_64-linux-android
 
 DEPENDENCIES
   activerecord (~> 8.1)
@@ -149,12 +177,22 @@ CHECKSUMS
   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
   ruby2_keywords (0.0.5) sha256=ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef
   sass-embedded (1.97.1) sha256=112ee8895854e7a8ea985937f7458f649fed8df255ed61e189f8a4b185e768d9
+  sass-embedded (1.97.1-aarch64-linux-android) sha256=f1801c8f5ac05ff0161fb9792259069239c2d4e497d2eca51a21c9ee2fa5e648
+  sass-embedded (1.97.1-arm-linux-androideabi) sha256=a1cbe71d760f91ad699b98df737efadd38e15b886d6f29d309d69665f83fcf5e
+  sass-embedded (1.97.1-arm-linux-gnueabihf) sha256=5484d596693d2018f20a9c46b6d1a234d97308fdd2169f8c6b1d8a9bd0f121dc
+  sass-embedded (1.97.1-arm-linux-musleabihf) sha256=b99fa71e32e1f7be57cf801ce08f4c1ffb2d1151d31f1134a1c334364c1c3274
+  sass-embedded (1.97.1-riscv64-linux-android) sha256=f5f4abc14a6ee0514fdc27b0926ad2b5dc2e363ab91b0d4887f04e3d83be35b0
+  sass-embedded (1.97.1-riscv64-linux-gnu) sha256=baaa87895042b3b656c689fc74a7a2c11e64e19006f5d283cad1cd265857fcea
+  sass-embedded (1.97.1-riscv64-linux-musl) sha256=a882358c8f8249ac7f336b4f214abe73aa45edb0a2ff4001ff13dbb4b5d0b5e7
+  sass-embedded (1.97.1-x86_64-linux-android) sha256=d3283323c0a5e2a46d7891748f09ad5446fe840ae69a305379e9a99c4c079cff
   sass-embedded (1.97.1-x86_64-linux-gnu) sha256=9a294bb0acb1a539ed19f0e511098a9740b4aab4389e169585e8da1337fbd8b4
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   sinatra (4.2.1) sha256=b7aeb9b11d046b552972ade834f1f9be98b185fa8444480688e3627625377080
   sinatra-activerecord (2.0.28) sha256=99f352c2dfa244d02b4f877efbe00135360b758390b8bb7bc2d4d91171c93811
   sinatra-contrib (4.2.1) sha256=10d091c944d268aa910c618ea40a3c3ebe0533e6e32990d84af92235a3d26b4a
   sqlite3 (2.9.0) sha256=ece9c00b32ec5f550d3a4a35c41ea8d738563589f090b9dfd0d510b7ae5f296c
+  sqlite3 (2.9.0-arm-linux-gnu) sha256=a19a21504b0d7c8c825fbbf37b358ae316b6bd0d0134c619874060b2eef05435
+  sqlite3 (2.9.0-arm-linux-musl) sha256=fca5b26197c70e3363115d3faaea34d7b2ad9c7f5fa8d8312e31b64e7556ee07
   sqlite3 (2.9.0-x86_64-linux-gnu) sha256=72fff9bd750070ba3af695511ba5f0e0a2d8a9206f84869640b3e99dfaf3d5a5
   tilt (2.6.1) sha256=35a99bba2adf7c1e362f5b48f9b581cce4edfba98117e34696dde6d308d84770
   timeout (0.6.0) sha256=6d722ad619f96ee383a0c557ec6eb8c4ecb08af3af62098a0be5057bf00de1af
