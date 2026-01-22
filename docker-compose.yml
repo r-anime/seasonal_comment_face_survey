@@ -19,3 +19,9 @@ services:
     env_file: .env
     volumes:
       - ./db.sqlite3:/app/db.sqlite3
+
+  seasonal_comment_face_nominations:
+    build: .
+    command: bundle exec ruby generate_nominations_csv.rb
+    volumes:
+      - .:/app

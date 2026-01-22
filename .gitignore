@@ -54,3 +54,6 @@ build/
 .env
 *.sqlite3*
 zsaved_responses
+
+# exclude top level json files
+/*.json
