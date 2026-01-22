@@ -135,6 +135,7 @@ DEPENDENCIES
   dotenv (~> 3.2.0)
   gon-sinatra (~> 0.1.2)
   httparty (~> 0.24.2)
+  json (~> 2.5)
   puma (~> 7.1)
   rackup (~> 2.3)
   rake (~> 13.3)
