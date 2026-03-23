@@ -5,7 +5,7 @@ ruby "~> 4.0"
 # git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem "activerecord", "~> 8.1"
-gem "activesupport", "~> 8.0"
+gem "activesupport", "~> 8.1"
 gem "csv", "~> 3.3"
 gem 'json', '~> 2.19'
 gem "dotenv", "~> 3.2.0"
