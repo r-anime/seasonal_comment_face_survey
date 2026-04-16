@@ -21,7 +21,7 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
     base64 (0.3.0)
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.1)
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
     csv (3.3.5)
@@ -29,10 +29,10 @@ GEM
     drb (2.2.3)
     gon-sinatra (0.1.2)
       sinatra
-    google-protobuf (4.34.0)
+    google-protobuf (4.34.1)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.34.0-x86_64-linux-gnu)
+    google-protobuf (4.34.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
     httparty (0.24.2)
@@ -41,7 +41,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    json (2.19.2)
+    json (2.19.3)
     logger (1.7.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
@@ -67,28 +67,28 @@ GEM
       rack (>= 3.0.0)
     rackup (2.3.1)
       rack (>= 3)
-    rake (13.3.1)
+    rake (13.4.2)
     ruby2_keywords (0.0.5)
-    sass-embedded (1.98.0)
+    sass-embedded (1.99.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
-    sass-embedded (1.98.0-aarch64-linux-android)
+    sass-embedded (1.99.0-aarch64-linux-android)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-arm-linux-androideabi)
+    sass-embedded (1.99.0-arm-linux-androideabi)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-arm-linux-gnueabihf)
+    sass-embedded (1.99.0-arm-linux-gnueabihf)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-arm-linux-musleabihf)
+    sass-embedded (1.99.0-arm-linux-musleabihf)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-riscv64-linux-android)
+    sass-embedded (1.99.0-riscv64-linux-android)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-riscv64-linux-gnu)
+    sass-embedded (1.99.0-riscv64-linux-gnu)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-riscv64-linux-musl)
+    sass-embedded (1.99.0-riscv64-linux-musl)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-x86_64-linux-android)
+    sass-embedded (1.99.0-x86_64-linux-android)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-x86_64-linux-gnu)
+    sass-embedded (1.99.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     securerandom (0.4.1)
     sinatra (4.2.1)
@@ -107,11 +107,11 @@ GEM
       rack-protection (= 4.2.1)
       sinatra (= 4.2.1)
       tilt (~> 2.0)
-    sqlite3 (2.9.2)
+    sqlite3 (2.9.3)
       mini_portile2 (~> 2.8.0)
-    sqlite3 (2.9.2-arm-linux-gnu)
-    sqlite3 (2.9.2-arm-linux-musl)
-    sqlite3 (2.9.2-x86_64-linux-gnu)
+    sqlite3 (2.9.3-arm-linux-gnu)
+    sqlite3 (2.9.3-arm-linux-musl)
+    sqlite3 (2.9.3-x86_64-linux-gnu)
     tilt (2.6.1)
     timeout (0.6.1)
     tzinfo (2.0.6)
@@ -142,8 +142,8 @@ DEPENDENCIES
   json (~> 2.19)
   puma (~> 7.2)
   rackup (~> 2.3)
-  rake (~> 13.3)
-  sass-embedded (~> 1.98)
+  rake (~> 13.4)
+  sass-embedded (~> 1.99)
   sinatra (~> 4.2.1)
   sinatra-activerecord (~> 2.0)
   sinatra-contrib
@@ -154,18 +154,18 @@ CHECKSUMS
   activerecord (8.1.3) sha256=8003be7b2466ba0a2a670e603eeb0a61dd66058fccecfc49901e775260ac70ab
   activesupport (8.1.3) sha256=21a5e0dfbd4c3ddd9e1317ec6a4d782fa226e7867dc70b0743acda81a1dca20e
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
-  bigdecimal (4.0.1) sha256=8b07d3d065a9f921c80ceaea7c9d4ae596697295b584c296fe599dd0ad01c4a7
+  bigdecimal (4.1.1) sha256=1c09efab961da45203c8316b0cdaec0ff391dfadb952dd459584b63ebf8054ca
   concurrent-ruby (1.3.6) sha256=6b56837e1e7e5292f9864f34b69c5a2cbc75c0cf5338f1ce9903d10fa762d5ab
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
   dotenv (3.2.0) sha256=e375b83121ea7ca4ce20f214740076129ab8514cd81378161f11c03853fe619d
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   gon-sinatra (0.1.2) sha256=0d1e58c72b17f6ac340df175dff59edd468bb4667e20070723d2947f8eae8268
-  google-protobuf (4.34.0) sha256=bffaea30fbe2807c80667a78953b15645b3bef62b25c10ca187e4418119be531
-  google-protobuf (4.34.0-x86_64-linux-gnu) sha256=bbb333fbe79c16f35a2e2154cf29f3ce26f60390dba286b339861206d5435ef9
+  google-protobuf (4.34.1) sha256=347181542b8d659c60f028fa3791c9cccce651a91ad27782dbc5c5e374796cdc
+  google-protobuf (4.34.1-x86_64-linux-gnu) sha256=87088c9fd8e47b5b40ca498fc1195add6149e941ff7e81c532a5b0b8876d4cc9
   httparty (0.24.2) sha256=8fca6a54aa0c4aa4303a0fd33e5e2156175d6a5334f714263b458abd7fda9c38
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
-  json (2.19.2) sha256=e7e1bd318b2c37c4ceee2444841c86539bc462e81f40d134cf97826cb14e83cf
+  json (2.19.3) sha256=289b0bb53052a1fa8c34ab33cc750b659ba14a5c45f3fcf4b18762dc67c78646
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
@@ -180,26 +180,26 @@ CHECKSUMS
   rack-protection (4.2.1) sha256=cf6e2842df8c55f5e4d1a4be015e603e19e9bc3a7178bae58949ccbb58558bac
   rack-session (2.1.1) sha256=0b6dc07dea7e4b583f58a48e8b806d4c9f1c6c9214ebc202ec94562cbea2e4e9
   rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
-  rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
+  rake (13.4.2) sha256=cb825b2bd5f1f8e91ca37bddb4b9aaf345551b4731da62949be002fa89283701
   ruby2_keywords (0.0.5) sha256=ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef
-  sass-embedded (1.98.0) sha256=397dcd0071170f079eb97562a035fa113358af10e3ff759a57bc7eef763e9f94
-  sass-embedded (1.98.0-aarch64-linux-android) sha256=bdc2c0e7473f569e53342adb7d7abc9349083bd8181e053a356218063ae09a32
-  sass-embedded (1.98.0-arm-linux-androideabi) sha256=eb3346f36ce6c378821bc422f0edda03cef03208e47b2a9d8e62330ed08e1361
-  sass-embedded (1.98.0-arm-linux-gnueabihf) sha256=763277f4070caccd6fcbcf4c54249539effe78c36850617922834a8eb72177d7
-  sass-embedded (1.98.0-arm-linux-musleabihf) sha256=7e21e46569f5cc47d5d04d77c73e4bdb08547304e2ed0ff6b9a83d608c0d9a2b
-  sass-embedded (1.98.0-riscv64-linux-android) sha256=6fee03d351e6eb3ffe3168702a3b045e56f7e4d435c98368e6e5ccb621eefbae
-  sass-embedded (1.98.0-riscv64-linux-gnu) sha256=5ca86012b061d63f1e37a7afab507b619f0928554d2cae126b259a093c2530b0
-  sass-embedded (1.98.0-riscv64-linux-musl) sha256=a28c0ec5318b515999e0db03a1e4eca54ff77c35b81df453ebe335c053ae6b30
-  sass-embedded (1.98.0-x86_64-linux-android) sha256=830e2c120001bdd5e2dea29e2b803c3c1481bfacc7d93cf676f63c4454f06b2b
-  sass-embedded (1.98.0-x86_64-linux-gnu) sha256=36b72021e00cfdd91ccb9eb490cff6addc376424cf9c2786f01392c8d0f0d4a0
+  sass-embedded (1.99.0) sha256=61942229dc7da4f335688196d43c1d3d5314060667a43ccf48f4b4c41b5578e1
+  sass-embedded (1.99.0-aarch64-linux-android) sha256=3b077c8436424b45eb04edaa46514fc92cc333f17b3fcca45857d124d453cdf1
+  sass-embedded (1.99.0-arm-linux-androideabi) sha256=9089a3aca8f16f855a2fc848c0762b09aef23251f91ec9714fea31c28c9094df
+  sass-embedded (1.99.0-arm-linux-gnueabihf) sha256=f5f0748934660cda6948917af6dc974caf4d36ea6121e450982153b7d9c49b55
+  sass-embedded (1.99.0-arm-linux-musleabihf) sha256=29a4056e76bc136025ba5d03e82d86ecdabfb6c07a473a4fdedcd72fb28dbbc4
+  sass-embedded (1.99.0-riscv64-linux-android) sha256=7ac1145c066670d5918a7afae8445338c45b4d8e34ad2968bda7099665ba8d15
+  sass-embedded (1.99.0-riscv64-linux-gnu) sha256=b8c421eba2e41fa3c94bffc971611d803aae336586a3baf2933c99e1c7548f88
+  sass-embedded (1.99.0-riscv64-linux-musl) sha256=63b924eb97548bd1f31193c36fab89bb100cd1a9bd144789a9a596fc98244a09
+  sass-embedded (1.99.0-x86_64-linux-android) sha256=39c51b80c292fdb5157fee9166793374104c4e6639d77dfefc36c339aa5dce12
+  sass-embedded (1.99.0-x86_64-linux-gnu) sha256=a4e2ae5e9951815cb8b3ab408cee8b800852491988a57de735f18d259c70d7c4
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   sinatra (4.2.1) sha256=b7aeb9b11d046b552972ade834f1f9be98b185fa8444480688e3627625377080
   sinatra-activerecord (2.0.28) sha256=99f352c2dfa244d02b4f877efbe00135360b758390b8bb7bc2d4d91171c93811
   sinatra-contrib (4.2.1) sha256=10d091c944d268aa910c618ea40a3c3ebe0533e6e32990d84af92235a3d26b4a
-  sqlite3 (2.9.2) sha256=86814150714b6b06a328d083f46408e7a4a83b5f0a9673ed934ee3a1cb7a73b1
-  sqlite3 (2.9.2-arm-linux-gnu) sha256=1ee2eb06b5301aaf5ce343a6e88d99ac932d95202d7b350f0e7b6d8d588580d7
-  sqlite3 (2.9.2-arm-linux-musl) sha256=8ca0de6aceede968de0394e22e95d549834c4d8e318f69a92a52f049878a0057
-  sqlite3 (2.9.2-x86_64-linux-gnu) sha256=dce83ffcb7e72f9f7aeb6e5404f15d277a45332fe18ccce8a8b3ed51e8d23aee
+  sqlite3 (2.9.3) sha256=e5ca871c87241bfdaf0e4a90d5177f4e4fe7af5f6951f88b4644339cc76e47ae
+  sqlite3 (2.9.3-arm-linux-gnu) sha256=fd8b74337a66bdaf746b97d65e6c9a2faff803c8f72d6b107fb880972815d072
+  sqlite3 (2.9.3-arm-linux-musl) sha256=792ae9a786bb37dbdc4c443c527bc91df423aac10e472f76d5cf5a9ac6d51980
+  sqlite3 (2.9.3-x86_64-linux-gnu) sha256=85200a10c6cf5c60085fcca411a3168c5fba8fda3e2b1b0109ec277d7c226d46
   tilt (2.6.1) sha256=35a99bba2adf7c1e362f5b48f9b581cce4edfba98117e34696dde6d308d84770
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
