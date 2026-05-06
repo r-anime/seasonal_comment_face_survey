@@ -11,7 +11,7 @@ gem 'json', '~> 2.19'
 gem "dotenv", "~> 3.2.0"
 gem "gon-sinatra", "~> 0.1.2"
 gem "httparty", "~> 0.24.2"
-gem "puma", "~> 7.2"
+gem "puma", "~> 8.0"
 gem "rackup", "~> 2.3"
 gem "rake", "~> 13.4"
 gem "sass-embedded", "~> 1.99"
