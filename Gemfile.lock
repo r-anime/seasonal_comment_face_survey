@@ -48,20 +48,19 @@ GEM
     minitest (6.1.0)
       drb (~> 2.0)
       prism (>= 1.5, < 3)
-    multi_json (1.19.1)
+    multi_json (1.21.2)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
-    mustermann (3.0.4)
-      ruby2_keywords (~> 0.0.1)
+    mustermann (3.1.1)
     nio4r (2.7.5)
     prism (2.1.0)
     prism (2.1.0-arm-linux-gnu)
     prism (2.1.0-arm-linux-musl)
     prism (2.1.0-x86_64-linux-gnu)
-    puma (8.1.1)
+    puma (8.1.2)
       nio4r (~> 2.0)
-    rack (3.2.6)
-    rack-protection (4.2.1)
+    rack (3.2.8)
+    rack-protection (4.2.2)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
@@ -71,7 +70,6 @@ GEM
     rackup (2.3.1)
       rack (>= 3)
     rake (13.4.2)
-    ruby2_keywords (0.0.5)
     sass-embedded (1.108.2)
       google-protobuf (~> 4.31)
       rake (~> 13.3)
@@ -94,28 +92,28 @@ GEM
     sass-embedded (1.108.2-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     securerandom (0.4.1)
-    sinatra (4.2.1)
+    sinatra (4.2.2)
       logger (>= 1.6.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
-      rack-protection (= 4.2.1)
+      rack-protection (= 4.2.2)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     sinatra-activerecord (2.0.28)
       activerecord (>= 4.1)
       sinatra (>= 1.0)
-    sinatra-contrib (4.2.1)
+    sinatra-contrib (4.2.2)
       multi_json (>= 0.0.2)
       mustermann (~> 3.0)
-      rack-protection (= 4.2.1)
-      sinatra (= 4.2.1)
+      rack-protection (= 4.2.2)
+      sinatra (= 4.2.2)
       tilt (~> 2.0)
     sqlite3 (2.10.2)
       mini_portile2 (~> 2.8.0)
     sqlite3 (2.10.2-arm-linux-gnu)
     sqlite3 (2.10.2-arm-linux-musl)
     sqlite3 (2.10.2-x86_64-linux-gnu)
-    tilt (2.6.1)
+    tilt (2.9.0)
     timeout (0.6.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -139,7 +137,7 @@ DEPENDENCIES
   activerecord (~> 8.1)
   activesupport (~> 8.1)
   csv (~> 3.3)
-  dotenv (~> 3.2.0)
+  dotenv (~> 3.2)
   gon-sinatra (~> 0.1.2)
   httparty (~> 0.24.3)
   json (~> 3.1)
@@ -147,7 +145,7 @@ DEPENDENCIES
   rackup (~> 2.3)
   rake (~> 13.4)
   sass-embedded (~> 1.108)
-  sinatra (~> 4.2.1)
+  sinatra (~> 4.2)
   sinatra-activerecord (~> 2.0)
   sinatra-contrib
   sqlite3 (~> 2.10)
@@ -174,21 +172,20 @@ CHECKSUMS
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
   minitest (6.1.0) sha256=ff373595aa8888631e8a5463986a76b3845346ae6d7fa46e139c1633d418076e
-  multi_json (1.19.1) sha256=7aefeff8f2c854bf739931a238e4aea64592845e0c0395c8a7d2eea7fdd631b7
+  multi_json (1.21.2) sha256=245531eaf54bdba57aba515ff08b4503505c5e09911daa89c5a561e2f85bea8e
   multi_xml (0.9.1) sha256=7ce766b59c17241ed62976caeae1fae9b2431b263398c35396239a68c4a64e57
-  mustermann (3.0.4) sha256=85fadcb6b3c6493a8b511b42426f904b7f27b282835502233dd154daab13aa22
+  mustermann (3.1.1) sha256=4c6170c7234d5499c345562ba7c7dfe73e1754286dcc1abb053064d66a127198
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
   prism (2.1.0) sha256=1c0a7c6dea0e93183390fb123f007564dbe663198e2f86ad87204151147601f3
   prism (2.1.0-arm-linux-gnu) sha256=96b2426b9dbab05448c4add735619929042be3cd7e871ff186468121b62bcfa8
   prism (2.1.0-arm-linux-musl) sha256=00ef918e42a3dc98f11a461bf473586a3424b0f78bee8a4e43b5a65a5f5e2cd0
   prism (2.1.0-x86_64-linux-gnu) sha256=b2b647afce09551e650b8bb3e2fc91d7d73d392a09534ca307ec0d619c33bfd4
-  puma (8.1.1) sha256=24800758cf064ecc19d056301b6946f628d77ea14653d485fa17ff6a6331555c
-  rack (3.2.6) sha256=5ed78e1f73b2e25679bec7d45ee2d4483cc4146eb1be0264fc4d94cb5ef212c2
-  rack-protection (4.2.1) sha256=cf6e2842df8c55f5e4d1a4be015e603e19e9bc3a7178bae58949ccbb58558bac
+  puma (8.1.2) sha256=3a6d9a34c9a4d0175eabd11b703939b5d43ebe08bc2534ac7dfd4df33a6ceedc
+  rack (3.2.8) sha256=1fecc85e463ebc7a2a945fff829ffcd549babeb1556384796fad946c28dc4ec7
+  rack-protection (4.2.2) sha256=0e75764dae462c4041544452ce568bb1f1ced556b791cd32ac479d0781065a99
   rack-session (2.1.2) sha256=595434f8c0c3473ae7d7ac56ecda6cc6dfd9d37c0b2b5255330aa1576967ffe8
   rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
   rake (13.4.2) sha256=cb825b2bd5f1f8e91ca37bddb4b9aaf345551b4731da62949be002fa89283701
-  ruby2_keywords (0.0.5) sha256=ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef
   sass-embedded (1.108.2) sha256=d3df2784ab3195aae3c5893a7dabe985d191cae4210868f99774d0f5ae7b97af
   sass-embedded (1.108.2-aarch64-linux-android) sha256=5abb2547112254f1c89e5f43812a1f1a01fd5e2b2005b46476bb0b9c34a47388
   sass-embedded (1.108.2-arm-linux-androideabi) sha256=a8ae928aee0d574c6d3ccf3d8f3f9ffcae073c05b91f147e4030e77030e40124
@@ -200,14 +197,14 @@ CHECKSUMS
   sass-embedded (1.108.2-x86_64-linux-android) sha256=758f65a05713354598277b847768f5c0d58e524e03836a1e01ba1cfcd694af63
   sass-embedded (1.108.2-x86_64-linux-gnu) sha256=797f7128c5cb11e527e390c2a8dbbdee09832e43b754f2c2ce7f691e27fec75d
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
-  sinatra (4.2.1) sha256=b7aeb9b11d046b552972ade834f1f9be98b185fa8444480688e3627625377080
+  sinatra (4.2.2) sha256=3a0e63c600eb65d7ad6fa0d597a9533f2870d1862cc63ab7b0f7f0ad449ad42f
   sinatra-activerecord (2.0.28) sha256=99f352c2dfa244d02b4f877efbe00135360b758390b8bb7bc2d4d91171c93811
-  sinatra-contrib (4.2.1) sha256=10d091c944d268aa910c618ea40a3c3ebe0533e6e32990d84af92235a3d26b4a
+  sinatra-contrib (4.2.2) sha256=3d629cfb3647e363cfca6609d0dcde63aa45db664645fe947f0eeddb9cca1620
   sqlite3 (2.10.2) sha256=f1ea68cd3287f8a49f39a088ac9e4bd0ef4e7f394c3d4a60dd4c7e44b0566964
   sqlite3 (2.10.2-arm-linux-gnu) sha256=762f609ef891463226b472d3df66aea84d5466ff4376d3ccf4a059718c4ce9c9
   sqlite3 (2.10.2-arm-linux-musl) sha256=833623eaf1157b1b85d1c0830e3e8f9beb3bb95a9bec3d252f20557a50e9803a
   sqlite3 (2.10.2-x86_64-linux-gnu) sha256=ca92731ab464df9cae503fa1a439a549e2724f6953c8c05a7769b59366e38f15
-  tilt (2.6.1) sha256=35a99bba2adf7c1e362f5b48f9b581cce4edfba98117e34696dde6d308d84770
+  tilt (2.9.0) sha256=da5735d0280bba96e9a91041bb14aee435ccad5c17b0fa519249ae543d9aa3a5
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   uri (1.1.2) sha256=89292e98eabbef6248b0a0ed5e7e398e152f83f17560023a6d94a7f492b169fb
