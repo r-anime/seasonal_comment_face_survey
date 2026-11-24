@@ -35,7 +35,7 @@ GEM
     google-protobuf (4.36.2-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    httparty (0.24.3)
+    httparty (0.25.0)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -139,7 +139,7 @@ DEPENDENCIES
   csv (~> 3.3)
   dotenv (~> 3.2)
   gon-sinatra (~> 0.1.2)
-  httparty (~> 0.24.3)
+  httparty (~> 0.25.0)
   json (~> 3.1)
   puma (~> 8.1)
   rackup (~> 2.3)
@@ -165,7 +165,7 @@ CHECKSUMS
   gon-sinatra (0.1.2) sha256=0d1e58c72b17f6ac340df175dff59edd468bb4667e20070723d2947f8eae8268
   google-protobuf (4.36.2) sha256=2f8daff50ae14aad36ab0ccdcf284065fa71d726c444efe114e6db82ffe62494
   google-protobuf (4.36.2-x86_64-linux-gnu) sha256=d25a820873e423f1d209ae8c672a4a28b019e2429debd0901d26670a0b4e14db
-  httparty (0.24.3) sha256=5c95cf29ca70d5bfd834e56140ddfca6e94166c3b870cde9c25d157cdb5a00d2
+  httparty (0.25.0) sha256=1efa6359fe5ee7dd1534b6d53b124e6a56f709fee9f0c8e4f580276dc1b479cc
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   json (3.1.0) sha256=3ce7ccf8fde58960177a3a756c31f292a4c1e1dedee884547096a5b0604e3bd8
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
