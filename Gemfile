@@ -7,10 +7,10 @@ ruby "~> 4.0"
 gem "activerecord", "~> 8.1"
 gem "activesupport", "~> 8.1"
 gem "csv", "~> 3.3"
-gem 'json', '~> 3.1'
+gem 'json', '~> 3.2'
 gem "dotenv", "~> 3.2"
 gem "gon-sinatra", "~> 0.1.2"
-gem "httparty", "~> 0.24.3"
+gem "httparty", "~> 0.25.1"
 gem "puma", "~> 8.1"
 gem "rackup", "~> 2.3"
 gem "rake", "~> 13.4"
